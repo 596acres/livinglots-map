@@ -110,12 +110,12 @@ define(
                 });
 
                 $('body').on('click', submitButtonSelector, function (e) {
+                    $(cancelButtonSelector).addClass('disabled');
+                    $(submitButtonSelector).addClass('disabled');
                     var parcelPks = _.pluck(map.selectedParcels, 'id');
                     if (parcelPks.length > 0 && confirm('Create one lot with all of the parcels selected?')) {
                         var spinner = new Spinner()
                             .spin($('.map-add-lot-mode-container')[0]);
-                        $(cancelButtonSelector).addClass('disabled');
-                        $(submitButtonSelector).addClass('disabled');
 
                         args = {
                             csrfmiddlewaretoken: Django.csrf_token(),
@@ -131,6 +131,10 @@ define(
                             .fail(function() {
                                 map.updateLotAddWindowFailure();
                             });
+                    }
+                    else {
+                        $(cancelButtonSelector).removeClass('disabled');
+                        $(submitButtonSelector).removeClass('disabled');
                     }
                     e.stopPropagation();
                     return false;
