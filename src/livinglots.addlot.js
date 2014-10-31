@@ -1,12 +1,9 @@
 var L = require('leaflet');
 var Handlebars = require('handlebars');
 var _ = require('underscore');
-var Spinner = require('spinjs');
+var Spinner = require('spin.js');
 
-var windowTemplate = require('livinglots.map.addlot.window'),
-    failureTemplate = require('livinglots.map.addlot.failure'),
-    successTemplate = require('livinglots.map.addlot.success'),
-    existsPopupTemplate = require('livinglots.map.addlot.exists');
+var templates = require('./templates')(Handlebars);
 
 var parcelDefaultStyle = {
     color: '#2593c6',
@@ -35,7 +32,9 @@ L.Map.include({
                         layer = event.layer,
                         feature = event.target.feature;
                     if (_.findWhere(map.selectedParcels, { id: feature.id })) {
-                        map.selectedParcels = _.reject(map.selectedParcels, function (p) { return p.id === feature.id });
+                        map.selectedParcels = _.reject(map.selectedParcels, function (p) {
+                            return p.id === feature.id;
+                        });
                         layer.setStyle(parcelDefaultStyle);
                     }
                     else {
@@ -163,14 +162,14 @@ L.Map.include({
     },
 
     updateLotAddWindow: function () {
-        this.replaceLotAddWindowContent(windowTemplate({
+        this.replaceLotAddWindowContent(templates['addlot.window.hbs']({
             parcels: this.selectedParcels
         }));
     },
 
     updateLotAddWindowSuccess: function (pk) {
         var map = this;
-        this.replaceLotAddWindowContent(successTemplate({
+        this.replaceLotAddWindowContent(templates['addlot.success.hbs']({
             pk: pk
         }));
 
@@ -185,7 +184,7 @@ L.Map.include({
 
     updateLotAddWindowFailure: function () {
         var map = this;
-        this.replaceLotAddWindowContent(failureTemplate({}));
+        this.replaceLotAddWindowContent(templates['addlot.failure.hbs']({}));
 
         $(cancelButtonSelector).click(function () {
             map.exitLotAddMode();

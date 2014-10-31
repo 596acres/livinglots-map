@@ -1,10 +1,9 @@
 var L = require('leaflet');
+var Handlebars = require('handlebars');
 var _ = require('underscore');
-var Spinner = require('spinjs');
+var Spinner = require('spin.js');
 
-var windowTemplate = require('livinglots.map.mail.window'),
-    failureTemplate = require('livinglots.map.mail.failure'),
-    successTemplate = require('livinglots.map.mail.success');
+var templates = require('./templates')(Handlebars);
 
 var cancelButtonSelector = '.mail-mode-cancel',
     submitButtonSelector = '.mail-mode-submit',
@@ -36,10 +35,10 @@ L.Map.include({
                 spinner.stop();
             })
             .done(function (data) {
-                map.replaceMailWindowContent(successTemplate(data));
+                map.replaceMailWindowContent(templates['mail.success.hbs'](data));
             })
             .fail(function (data) {
-                map.replaceMailWindowContent(failureTemplate(data));
+                map.replaceMailWindowContent(templates['mail.failure.hbs'](data));
             });
     },
 
@@ -64,7 +63,7 @@ L.Map.include({
                 subject: subject,
                 text: text
             });
-            map.replaceMailWindowContent(windowTemplate(data));
+            map.replaceMailWindowContent(templates['mail.window.hbs'](data));
 
             // Watch for changes on form to determine whether submit should be
             // enabled
