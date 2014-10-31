@@ -1,0 +1,15 @@
+{
+  "name": "livinglots-map",
+  "version": "0.3.0",
+  "description": "Front end code for Living Lots",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/596acres/livinglots-map.git"
+  },
+  "author": "Eric Brelsford",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/596acres/livinglots-map/issues"
+  }
+}
