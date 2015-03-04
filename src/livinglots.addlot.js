@@ -151,7 +151,7 @@ L.Map.include({
 
     createLotExistsPopup: function (latlng, pk) {
         var url = Django.url('lots:lot_detail', { pk: pk }),
-            content = existsPopupTemplate({ lotUrl: url });
+            content = templates['addlot.existspopup.hbs']({ lotUrl: url });
         this.openPopup(content, latlng, { offset: [0, 0] });
     },
 
