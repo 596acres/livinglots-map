@@ -1,8 +1,10 @@
 livinglots-map
 ==============
 
-Front-end code for Living Lots. Learn more at
+Front-end code for Living Lots ®. Learn more at
 [596acres/django-livinglots](https://github.com/596acres/django-livinglots).
+
+This module is part of the [Living Lots](https://github.com/596acres/django-livinglots) framework by [596 Acres](https://596acres.org) ®.
 
 
 License
